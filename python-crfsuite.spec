@@ -4,19 +4,35 @@
 #
 Name     : python-crfsuite
 Version  : 0.9.6
-Release  : 7
+Release  : 8
 URL      : https://files.pythonhosted.org/packages/73/b5/d9640656386b28ca181410f292ffcc3f1c39d9438f0796f874fd5d65ee34/python-crfsuite-0.9.6.tar.gz
 Source0  : https://files.pythonhosted.org/packages/73/b5/d9640656386b28ca181410f292ffcc3f1c39d9438f0796f874fd5d65ee34/python-crfsuite-0.9.6.tar.gz
 Summary  : Python binding for CRFsuite
 Group    : Development/Tools
-License  : MIT
+License  : BSD-3-Clause MIT
+Requires: python-crfsuite-license = %{version}-%{release}
 Requires: python-crfsuite-python = %{version}-%{release}
 Requires: python-crfsuite-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
+BuildRequires : python3-dev
 
 %description
-python-crfsuite
-        ===============
+libLBFGS: C library of limited-memory BFGS (L-BFGS)
+=========================================================================
+1. Introduction
+=========================================================================
+libLBFGS is a C port of the implementation of Limited-memory
+Broyden-Fletcher-Goldfarb-Shanno (L-BFGS) method written by Jorge Nocedal.
+The original FORTRAN source code is available at:
+http://www.ece.northwestern.edu/~nocedal/lbfgs.html
+
+%package license
+Summary: license components for the python-crfsuite package.
+Group: Default
+
+%description license
+license components for the python-crfsuite package.
+
 
 %package python
 Summary: python components for the python-crfsuite package.
@@ -31,6 +47,7 @@ python components for the python-crfsuite package.
 Summary: python3 components for the python-crfsuite package.
 Group: Default
 Requires: python3-core
+Provides: pypi(python-crfsuite)
 
 %description python3
 python3 components for the python-crfsuite package.
@@ -38,17 +55,31 @@ python3 components for the python-crfsuite package.
 
 %prep
 %setup -q -n python-crfsuite-0.9.6
+cd %{_builddir}/python-crfsuite-0.9.6
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1542759629
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1583211561
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
+export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/python-crfsuite
+cp %{_builddir}/python-crfsuite-0.9.6/LICENSE.txt %{buildroot}/usr/share/package-licenses/python-crfsuite/48fc66e2f58aa63627bd74410013defb0c874c1d
+cp %{_builddir}/python-crfsuite-0.9.6/crfsuite/COPYING %{buildroot}/usr/share/package-licenses/python-crfsuite/2e0ac6915545102c1ea6b0a3c8c6c85187684bdd
+cp %{_builddir}/python-crfsuite-0.9.6/crfsuite/lib/cqdb/COPYING %{buildroot}/usr/share/package-licenses/python-crfsuite/b040fe0b773c5b368b78f9aedce9c156857092e7
+cp %{_builddir}/python-crfsuite-0.9.6/liblbfgs/COPYING %{buildroot}/usr/share/package-licenses/python-crfsuite/a2dc68f3a713ad04c1811f6c5468bb6e0755fa23
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -56,6 +87,13 @@ echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/python-crfsuite/2e0ac6915545102c1ea6b0a3c8c6c85187684bdd
+/usr/share/package-licenses/python-crfsuite/48fc66e2f58aa63627bd74410013defb0c874c1d
+/usr/share/package-licenses/python-crfsuite/a2dc68f3a713ad04c1811f6c5468bb6e0755fa23
+/usr/share/package-licenses/python-crfsuite/b040fe0b773c5b368b78f9aedce9c156857092e7
 
 %files python
 %defattr(-,root,root,-)
