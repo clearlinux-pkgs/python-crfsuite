@@ -4,7 +4,7 @@
 #
 Name     : python-crfsuite
 Version  : 0.9.6
-Release  : 8
+Release  : 9
 URL      : https://files.pythonhosted.org/packages/73/b5/d9640656386b28ca181410f292ffcc3f1c39d9438f0796f874fd5d65ee34/python-crfsuite-0.9.6.tar.gz
 Source0  : https://files.pythonhosted.org/packages/73/b5/d9640656386b28ca181410f292ffcc3f1c39d9438f0796f874fd5d65ee34/python-crfsuite-0.9.6.tar.gz
 Summary  : Python binding for CRFsuite
@@ -17,14 +17,8 @@ BuildRequires : buildreq-distutils3
 BuildRequires : python3-dev
 
 %description
-libLBFGS: C library of limited-memory BFGS (L-BFGS)
-=========================================================================
-1. Introduction
-=========================================================================
-libLBFGS is a C port of the implementation of Limited-memory
-Broyden-Fletcher-Goldfarb-Shanno (L-BFGS) method written by Jorge Nocedal.
-The original FORTRAN source code is available at:
-http://www.ece.northwestern.edu/~nocedal/lbfgs.html
+python-crfsuite
+        ===============
 
 %package license
 Summary: license components for the python-crfsuite package.
@@ -47,7 +41,7 @@ python components for the python-crfsuite package.
 Summary: python3 components for the python-crfsuite package.
 Group: Default
 Requires: python3-core
-Provides: pypi(python-crfsuite)
+Provides: pypi(python_crfsuite)
 
 %description python3
 python3 components for the python-crfsuite package.
@@ -62,8 +56,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1583211561
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1583540550
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
