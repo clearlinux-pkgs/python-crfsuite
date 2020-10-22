@@ -4,7 +4,7 @@
 #
 Name     : python-crfsuite
 Version  : 0.9.7
-Release  : 12
+Release  : 13
 URL      : https://files.pythonhosted.org/packages/e1/4d/abbe0dc125b0a11ecd55fa3a5b33b44656227d214a61deb73e2a152aa257/python-crfsuite-0.9.7.tar.gz
 Source0  : https://files.pythonhosted.org/packages/e1/4d/abbe0dc125b0a11ecd55fa3a5b33b44656227d214a61deb73e2a152aa257/python-crfsuite-0.9.7.tar.gz
 Summary  : Python binding for CRFsuite
@@ -16,14 +16,8 @@ Requires: python-crfsuite-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
 
 %description
-libLBFGS: C library of limited-memory BFGS (L-BFGS)
-=========================================================================
-1. Introduction
-=========================================================================
-libLBFGS is a C port of the implementation of Limited-memory
-Broyden-Fletcher-Goldfarb-Shanno (L-BFGS) method written by Jorge Nocedal.
-The original FORTRAN source code is available at:
-http://www.ece.northwestern.edu/~nocedal/lbfgs.html
+python-crfsuite
+        ===============
 
 %package license
 Summary: license components for the python-crfsuite package.
@@ -61,12 +55,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1584305400
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1603401819
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
